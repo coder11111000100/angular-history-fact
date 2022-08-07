@@ -1,0 +1,24 @@
+<div *ngIf="loading; else block" class="conteiner offset stile-block stile-text">
+    <div class="stile-selfish" *ngFor="let title of objectBlock | keyvalue">
+        <app-block>
+            <h1>{{title.key}}</h1>
+            <section>
+                <div *ngFor="let num of title.value"><button class="offset-button"
+                        (click)="showDialogFact($event, title.key); modal = true">
+                        {{num}}
+                    </button></div>
+                <fieldset [formGroup]="formFacts">
+                    <input formControlName="firstName">
+                    <button (click)="showDialogFact(); modal = true"> submit</button>
+                </fieldset>
+            </section>
+        </app-block>
+    </div>
+</div>
+<ng-template #block>
+    <div>
+        <h1>...Loading</h1>
+    </div>
+</ng-template>
+<app-modal-dialog *ngIf="modal" (close)="modal = false" [message]="fact">
+</app-modal-dialog>
